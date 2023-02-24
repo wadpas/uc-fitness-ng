@@ -1,4 +1,5 @@
 import '../assets/css/style.css'
+import autumnMp4 from '../assets/media/autumn.mp4'
 
 const app = document.getElementById('app')
 app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
@@ -7,6 +8,11 @@ app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
   <p>Accepts only .png, .jpg, .svg</p>
   <div class="dropzone">Drag to Upload</div>
   <div class="list"></div>
+  <div class="player">
+    <video controls>
+      <source src="${autumnMp4}" type="video/mp4">  
+    </video>
+  <div/>
 </div>
 
 <style>
@@ -33,9 +39,28 @@ app.innerHTML = `<h1>JavaScript HTML5 APIs</h1>
 <style/>
 `
 
-const init = () => {
+const init = async () => {
   const dropzone = document.querySelector('.dropzone')
   const list = document.querySelector('.list')
+  const player = document.querySelector('.player')
+  const media = player.querySelector('.media')
+  const permission = await Notification.requestPermission()
+
+  switch (permission) {
+    case 'granted': {
+      console.log('Permission granted')
+      break
+    }
+    case 'denied': {
+      console.log('Permission denied')
+      break
+    }
+    default: {
+      console.log('Permission unknown')
+    }
+  }
+
+  new Notification('Now Playing')
 
   dropzone.addEventListener('dragenter', (e) =>
     e.target.classList.add('active')
@@ -108,6 +133,4 @@ const init = () => {
   document.addEventListener('drop', (e) => e.preventDefault())
 }
 
-if ('draggable' in document.createElement('div')) {
-  init()
-}
+init()
