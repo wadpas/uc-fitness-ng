@@ -3,7 +3,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-  app.component`
+  <div>
+    Angular
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>`
 })
 export class AppComponent {
   title = 'uc-fitness-ng';
