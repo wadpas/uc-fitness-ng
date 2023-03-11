@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LoginComponent } from "./login.component";
 import { RegisterComponent } from "./register.component";
 import { AuthFormComponent } from "./auth-form/auth-form.component";
+import { AuthService } from 'src/auth/auth.service';
 
 export const ROUTES: Routes = [
     {
@@ -23,12 +24,16 @@ export const ROUTES: Routes = [
     imports: [
         CommonModule,
         RouterModule.forChild(ROUTES),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+
     ],
     declarations: [
         LoginComponent,
         RegisterComponent,
         AuthFormComponent
-    ]
+    ],
+    providers: [
+        AuthService
+    ],
 })
 export class AuthModule { }
