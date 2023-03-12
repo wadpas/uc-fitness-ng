@@ -16,10 +16,10 @@ export const ROUTES: Routes = [];
     BrowserModule,
     RouterModule.forRoot(ROUTES),
     NgbModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
-    AuthService
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,28 +1,48 @@
 import { Injectable } from "@angular/core";
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+    Auth,
+    authState,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword
+} from '@angular/fire/auth';
+import { tap } from "rxjs";
+
+
+import { Store } from "store";
+
+export interface User {
+    email: string,
+    uid: string,
+    authenticate: boolean
+}
 
 @Injectable()
 export class AuthService {
-    firebaseConfig = {
-        apiKey: "AIzaSyAZwir_ZenNQnaVwoam46F6f6tn2wmEjPY",
-        authDomain: "fitness-ng-56fb7.firebaseapp.com",
-        databaseURL: "https://fitness-ng-56fb7-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "fitness-ng-56fb7",
-        storageBucket: "fitness-ng-56fb7.appspot.com",
-        messagingSenderId: "245211566214",
-        appId: "1:245211566214:web:3063358bac492d1cc70107",
-        measurementId: "G-ZF2L6XP2HD"
-    };
+    constructor(
+        private store: Store,
+        private auth: Auth,
+    ) { }
 
-    app = initializeApp(this.firebaseConfig);
-    auth = getAuth(this.app);
+    auth$ = authState(this.auth).pipe(
+        tap(next => {
+            if (!next) {
+                this.store.set('user', null)
+            }
+            const user: User = {
+                email: next.email,
+                uid: next.uid,
+                authenticate: true
+            }
+            this.store.set('user', user)
+        })
+    )
 
     createUser(email: string, password: string) {
         return createUserWithEmailAndPassword(this.auth, email, password)
     }
 
     loginUser(email: string, password: string) {
+        console.log(this.store)
         return signInWithEmailAndPassword(this.auth, email, password)
     }
 }           
