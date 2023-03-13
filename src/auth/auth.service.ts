@@ -3,7 +3,8 @@ import {
     Auth,
     authState,
     signInWithEmailAndPassword,
-    createUserWithEmailAndPassword
+    createUserWithEmailAndPassword,
+    signOut
 } from '@angular/fire/auth';
 import { tap } from "rxjs";
 
@@ -13,7 +14,7 @@ import { Store } from "store";
 export interface User {
     email: string,
     uid: string,
-    authenticate: boolean
+    authenticated: boolean
 }
 
 @Injectable()
@@ -25,15 +26,19 @@ export class AuthService {
 
     auth$ = authState(this.auth).pipe(
         tap(next => {
-            if (!next) {
-                this.store.set('user', null)
+            if (next) {
+                this.store.set('user', {
+                    email: next.email,
+                    uid: next.uid,
+                    authenticated: true
+                })
+            } else {
+                this.store.set('user', {
+                    email: '',
+                    uid: '',
+                    authenticated: false
+                })
             }
-            const user: User = {
-                email: next.email,
-                uid: next.uid,
-                authenticate: true
-            }
-            this.store.set('user', user)
         })
     )
 
@@ -42,7 +47,11 @@ export class AuthService {
     }
 
     loginUser(email: string, password: string) {
-        console.log(this.store)
         return signInWithEmailAndPassword(this.auth, email, password)
+
+    }
+
+    logoutUser() {
+        return signOut(this.auth)
     }
 }           

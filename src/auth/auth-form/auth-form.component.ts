@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: 'auth-form',
@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
     <div class="auth-form">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <ng-content select="h1"></ng-content>
+        <div>test@test.ua 111111</div>
         <label>
             <input
                 type="email"    
@@ -28,7 +29,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
         </div>
         <ng-content select=".error"></ng-content>
         <div class="auth-form__action">
-            <ng-content select="button"></ng-content>
+            <ng-content select="button"></ng-content>   
         </div>
         <div class="auth-form__toggle">
             <ng-content select="a"></ng-content>

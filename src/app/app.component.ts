@@ -1,17 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { User } from 'firebase/auth';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService, User } from 'src/auth/auth.service';
 import { Store } from 'store';
 
 @Component({
   selector: 'app-root',
   template: `
   <div>
-    <h1>{{ user$ | async | json}}</h1>
+    <app-header></app-header>
+    <app-nav 
+       [authenticated]="(user$ | async)?.authenticated"
+      (logout)="onLogout()">
+    </app-nav>
+    <div> 
+     {{ user$ | async | json}}
+    </div>
     <div class="wrapper">
       <router-outlet></router-outlet>
-    </div>
+    </div>  
   </div>`
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -32,5 +38,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe()
   }
 
+  onLogout() {
+    this.authService.logoutUser()
+  }
 
 }

@@ -33,9 +33,8 @@ export class LoginComponent {
     async loginUser(event: FormGroup) {
         const { email, password } = event.value
         try {
-            await this.authService.loginUser(email, password)
-            this.router.navigate(['/'])
-            console.log('loginUser')
+            await this.authService.loginUser(email, password);
+            this.router.navigate(['']);
         } catch (err: any) {
             this.error = err.message
         }

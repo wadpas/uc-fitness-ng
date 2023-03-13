@@ -10,15 +10,16 @@ import { LoginComponent } from "./login.component";
 import { RegisterComponent } from "./register.component";
 import { AuthFormComponent } from "./auth-form/auth-form.component";
 import { AuthService } from 'src/auth/auth.service';
+import { Store } from "store";
 
 
 
 const firebaseConfig = {
     apiKey: "AIzaSyAZwir_ZenNQnaVwoam46F6f6tn2wmEjPY",
-    authDomain: "fitness-ng-56fb7.firebaseapp.com",
-    databaseURL: "https://fitness-ng-56fb7-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "fitness-ng-56fb7",
-    storageBucket: "fitness-ng-56fb7.appspot.com",
+    authDomain: "curves-ng-56fb7.firebaseapp.com",
+    databaseURL: "https://curves-ng-56fb7-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "curves-ng-56fb7",
+    storageBucket: "curves-ng-56fb7.appspot.com",
     messagingSenderId: "245211566214",
     appId: "1:245211566214:web:3063358bac492d1cc70107",
     measurementId: "G-ZF2L6XP2HD"
@@ -51,7 +52,8 @@ export const ROUTES: Routes = [
         AuthFormComponent
     ],
     providers: [
-        AuthService
+        AuthService,
+        Store
     ],
 })
 export class AuthModule { } 

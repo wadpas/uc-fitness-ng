@@ -9,7 +9,11 @@ export interface State {
 }
 
 const state: State = {
-  user: undefined
+  user: {
+    email: '',
+    uid: '',
+    authenticated: false
+  }
 };
 
 @Injectable({

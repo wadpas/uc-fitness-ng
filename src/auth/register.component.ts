@@ -34,8 +34,7 @@ export class RegisterComponent {
         const { email, password } = event.value
         try {
             await this.authService.createUser(email, password)
-            this.router.navigate(['/'])
-            console.log('registerUser')
+            this.router.navigate([''])
         } catch (err: any) {
             this.error = err.message
         }
